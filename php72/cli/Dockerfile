@@ -5,11 +5,17 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Install selected extensions and other stuff
 RUN apt-get update \
-    && apt-get -y --no-install-recommends install php7.2-pgsql php7.2-bcmath php7.2-redis \
-    && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+ && apt-get -y --no-install-recommends install php7.2-pgsql php7.2-bcmath php7.2-redis php7.2-phpdbg \
+ && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 # Install git
 RUN apt-get update \
-    && apt-get -y install git \
-    && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+ && apt-get -y install git \
+ && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
+# Install xdebug
+RUN apt-get update \
+ && apt-get -y install php7.2-xdebug \
+ && echo '' > /etc/php/7.2/cli/conf.d/20-xdebug.ini \
+ && echo 'alias xphp="php -d zend_extension=xdebug.so"' >> ~/.bashrc \
+ && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
