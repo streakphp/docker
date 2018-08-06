@@ -17,5 +17,6 @@ RUN apt-get update \
 RUN apt-get update \
  && apt-get -y install php7.2-xdebug \
  && echo '' > /etc/php/7.2/cli/conf.d/20-xdebug.ini \
- && echo 'alias xphp="php -d zend_extension=xdebug.so"' >> ~/.bashrc \
+ && echo '#!/bin/sh\nphp -d zend_extension=xdebug.so "$@"' >> /usr/local/bin/xphp \
+ && chmod +x /usr/local/bin/xphp \
  && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
