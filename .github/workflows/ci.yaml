@@ -1,0 +1,27 @@
+name: CI
+on: [push]
+jobs:
+  build-php74:
+    name: Build PHP 7.4
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Build CLI
+        run: docker build -t streakphp/php74-cli:latest php74/cli
+      - name: Build FPM
+        run: docker build -t streakphp/php74-fpm:latest php74/fpm
+      - name: Build CGI
+        run: docker build -t streakphp/php74-cgi:latest php74/cgi
+  build-php80:
+    name: Build PHP 8.0
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Build CLI
+        run: docker build -t streakphp/php80-cli:latest php80/cli
+      - name: Build FPM
+        run: docker build -t streakphp/php80-fpm:latest php80/fpm
+      - name: Build CGI
+        run: docker build -t streakphp/php80-cgi:latest php80/cgi
